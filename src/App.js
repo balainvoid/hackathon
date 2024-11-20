@@ -101,12 +101,6 @@ const App = () => {
       if(typeof formData.transactionDetails.recurringPayment === 'string')
         formData.transactionDetails.recurringPayment = Boolean(formData.transactionDetails.recurringPayment);
 
-      if(typeof formData.payerDetails.payerAccountBalance === 'string')
-        formData.payerDetails.payerAccountBalance = Number(formData.payerDetails.payerAccountBalance);
-
-      if(typeof formData.payerDetails.upiLimitCheck === 'string')
-        formData.payerDetails.upiLimitCheck = Number(formData.payerDetails.upiLimitCheck);
-
       const response = await fetch("https://pjmuarrjsk6gfonryic55dqghi0kzurg.lambda-url.ap-south-1.on.aws", {
         method: "POST",
         headers: {
