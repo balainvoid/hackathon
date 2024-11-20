@@ -83,6 +83,20 @@ const App = () => {
 
   const handleSubmit = async () => {
     try {
+      if(typeof formData.transactionDetails.amount === 'string')
+      formData.transactionDetails.amount = Number(formData.transactionDetails.amount);
+
+      if(typeof formData.payeeDetails.location.latitude === 'string')
+      formData.payeeDetails.location.latitude = Number(formData.payeeDetails.location.latitude);
+
+      if(typeof formData.payeeDetails.location.longitude === 'string')
+      formData.payeeDetails.location.longitude = Number(formData.payeeDetails.location.longitude);
+
+      if(typeof formData.payerDetails.location.latitude === 'string')
+        formData.payerDetails.location.latitude = Number(formData.payerDetails.location.latitude);
+
+      if(typeof formData.payerDetails.location.longitude === 'string')
+        formData.payerDetails.location.longitude = Number(formData.payerDetails.location.longitude);
       const response = await fetch("https://pjmuarrjsk6gfonryic55dqghi0kzurg.lambda-url.ap-south-1.on.aws", {
         method: "POST",
         headers: {
