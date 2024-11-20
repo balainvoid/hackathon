@@ -11,6 +11,7 @@ const initialData = {
   },
   payerDetails: {
     upiId: "jon.doe@example",
+    mobileNumber: 9876543210,
     category: "individual, business",
     accountType: "savings, current, checking",
     accountAge: 369,
@@ -34,7 +35,8 @@ const initialData = {
     }
   },
   payeeDetails: {
-    upiId: "jane.doe@example",
+    upiId: "upiId12",
+    mobileNumber: 9876543211,
     category: "individual, business",
     mcc: "9399",
     accountType: "savings, current, checking",
@@ -81,12 +83,15 @@ const App = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch("https://api.example.com/submit", {
+      const response = await fetch("https://pjmuarrjsk6gfonryic55dqghi0kzurg.lambda-url.ap-south-1.on.aws", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          'Access-Control-Allow-Origin':"*",
+          'Access-Control-Allow-Headers': "*"
         },
         body: JSON.stringify(formData), // Send updated formData
+        mode: "cors"
       });
 
       if (!response.ok) {
