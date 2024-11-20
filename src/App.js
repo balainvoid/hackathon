@@ -150,7 +150,7 @@ const App = () => {
                     typeof value === "object" ? (
                         Object.entries(value).map(([subKey, subValue]) => (
                             <tr key={`${sectionKey}-${key}-${subKey}`}>
-                              <td style={{ padding: "10px", border: "1px solid #ddd" }}>{`${capitalizeFirstLetter(key)} (${subKey})`}</td>
+                              <td style={{ padding: "10px", border: "1px solid #ddd" }}>{`${capitalizeFirstLetter(subKey)} (${key})`}</td>
                               <td style={{ padding: "10px", border: "1px solid #ddd" }}>
                                 <input
                                     type="text"
