@@ -5,7 +5,7 @@ const initialData = {
   transactionDetails: {
     type: "p2p",
     mode: "qr_code",
-    amount: 4500.62,
+    amount: 20000,
     recurringPayment: true,
     transactionPurpose: "salary"
   },
@@ -15,8 +15,8 @@ const initialData = {
     category: "individual",
     accountType: "savings",
     accountAge: 369,
-    payerAccountBalance: "41793.49",
-    upiLimitCheck: "23000",
+    payerAccountBalance: "500000",
+    upiLimitCheck: "500000",
     deviceDetails: {
       deviceType: "mobile",
       deviceModel: "XY-123Z",
@@ -35,7 +35,7 @@ const initialData = {
     }
   },
   payeeDetails: {
-    upiId: "upiId12",
+    upiId: "upiId13",
     mobileNumber: 9876543211,
     category: "individual",
     mcc: "9399",
