@@ -97,6 +97,16 @@ const App = () => {
 
       if(typeof formData.payerDetails.location.longitude === 'string')
         formData.payerDetails.location.longitude = Number(formData.payerDetails.location.longitude);
+
+      if(typeof formData.transactionDetails.recurringPayment === 'string')
+        formData.transactionDetails.recurringPayment = Boolean(formData.transactionDetails.recurringPayment);
+
+      if(typeof formData.payerDetails.payerAccountBalance === 'string')
+        formData.payerDetails.payerAccountBalance = Number(formData.payerDetails.payerAccountBalance);
+
+      if(typeof formData.payerDetails.upiLimitCheck === 'string')
+        formData.payerDetails.upiLimitCheck = Number(formData.payerDetails.upiLimitCheck);
+
       const response = await fetch("https://pjmuarrjsk6gfonryic55dqghi0kzurg.lambda-url.ap-south-1.on.aws", {
         method: "POST",
         headers: {
@@ -140,7 +150,7 @@ const App = () => {
                     typeof value === "object" ? (
                         Object.entries(value).map(([subKey, subValue]) => (
                             <tr key={`${sectionKey}-${key}-${subKey}`}>
-                              <td style={{ padding: "10px", border: "1px solid #ddd" }}>{`${capitalizeFirstLetter(key)} (${capitalizeFirstLetter(subKey)})`}</td>
+                              <td style={{ padding: "10px", border: "1px solid #ddd" }}>{`${capitalizeFirstLetter(key)} (${subKey})`}</td>
                               <td style={{ padding: "10px", border: "1px solid #ddd" }}>
                                 <input
                                     type="text"
@@ -155,7 +165,7 @@ const App = () => {
                         ))
                     ) : (
                         <tr key={`${sectionKey}-${key}`}>
-                          <td style={{ padding: "10px", border: "1px solid #ddd" }}>{capitalizeFirstLetter(key)}</td>
+                          <td style={{ padding: "10px", border: "1px solid #ddd" }}>{`${capitalizeFirstLetter(key)} (${sectionKey})`}</td>
                           <td style={{ padding: "10px", border: "1px solid #ddd" }}>
                             <input
                                 type="text"
