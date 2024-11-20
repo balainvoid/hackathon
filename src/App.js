@@ -99,7 +99,7 @@ const App = () => {
         formData.payerDetails.location.longitude = Number(formData.payerDetails.location.longitude);
 
       if(typeof formData.transactionDetails.recurringPayment === 'string')
-        formData.transactionDetails.recurringPayment = Boolean(formData.transactionDetails.recurringPayment);
+        formData.transactionDetails.recurringPayment = formData.transactionDetails.recurringPayment.toLowerCase() === 'true';
 
       const response = await fetch("https://pjmuarrjsk6gfonryic55dqghi0kzurg.lambda-url.ap-south-1.on.aws", {
         method: "POST",
