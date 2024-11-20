@@ -3,24 +3,24 @@ import React, { useState } from "react";
 // JSON data
 const initialData = {
   transactionDetails: {
-    type: "p2p, p2m",
-    mode: "qr_code, collect, intent, app-2-app, link-based",
+    type: "p2p",
+    mode: "qr_code",
     amount: 4500.62,
     recurringPayment: true,
-    transactionPurpose: "salary, phone_recharge, credit_card_bill"
+    transactionPurpose: "salary"
   },
   payerDetails: {
     upiId: "jon.doe@example",
     mobileNumber: 9876543210,
-    category: "individual, business",
-    accountType: "savings, current, checking",
+    category: "individual",
+    accountType: "savings",
     accountAge: 369,
     payerAccountBalance: "41793.49",
     upiLimitCheck: "23000",
     deviceDetails: {
-      deviceType: "mobile, tablet, desktop",
+      deviceType: "mobile",
       deviceModel: "XY-123Z",
-      deviceOs: "android_12, ios_14",
+      deviceOs: "android_12",
       ipAddress: "192.168.1.1",
       jailbroken: true,
       rooted: true,
@@ -37,14 +37,14 @@ const initialData = {
   payeeDetails: {
     upiId: "upiId12",
     mobileNumber: 9876543211,
-    category: "individual, business",
+    category: "individual",
     mcc: "9399",
-    accountType: "savings, current, checking",
+    accountType: "savings",
     accountAge: 369,
     deviceDetails: {
-      deviceType: "mobile, tablet, desktop",
+      deviceType: "mobile",
       deviceModel: "XY-123Z",
-      deviceOs: "android_12, ios_14",
+      deviceOs: "android_12",
       ipAddress: "192.168.1.1",
       jailbroken: true,
       rooted: true,
@@ -103,118 +103,16 @@ const App = () => {
     } catch (error) {
       console.error("Error in API call:", error);
       setResponseData({
-        finalDecision: "fail",
+        finalDecision: "REJECT",
         riskScore: 0,
         reasons: ["API call failed. Please try again later."],
       }); // Show a fail response in case of error
     }
   };
-
-
-  const handlePastTransactions = () => {
-    const data = [
-      {
-        "id": "Rand0m-uU1d-Str1nG",
-        "payerId": "Rand0m-uU1d-Str1nG",
-        "payeeId": "Rand0m-uU1d-Str1nG",
-        "finalDecision": "pass, fail, manual_review",
-        "riskScore": 84,
-        "reasons": [
-          "Unusual transaction amount",
-          "High-risk merchant",
-          "Suspicious IP address"
-        ],
-        "timestamp": 1709305619369
-      },
-      {
-        "id": "Rand0m-uU1d-Str1nG",
-        "payerId": "Rand0m-uU1d-Str1nG",
-        "payeeId": "Rand0m-uU1d-Str1nG",
-        "finalDecision": "pass, fail, manual_review",
-        "riskScore": 84,
-        "reasons": [
-          "Unusual transaction amount",
-          "High-risk merchant",
-          "Suspicious IP address"
-        ],
-        "timestamp": 1709305619369
-      },
-      {
-        "id": "Rand0m-uU1d-Str1nG",
-        "payerId": "Rand0m-uU1d-Str1nG",
-        "payeeId": "Rand0m-uU1d-Str1nG",
-        "finalDecision": "pass, fail, manual_review",
-        "riskScore": 84,
-        "reasons": [
-          "Unusual transaction amount",
-          "High-risk merchant",
-          "Suspicious IP address"
-        ],
-        "timestamp": 1709305619369
-      }
-    ]
-
-    const newTab = window.open("", "_blank");
-    newTab.document.write(`
-      <style>
-        body {
-          font-family: Arial, sans-serif;
-          padding: 20px;
-          background-color: #f7f9fc;
-        }
-        .transaction {
-          margin-bottom: 20px;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-          background-color: #fff;
-        }
-        .transaction h4 {
-          color: #555;
-        }
-        .transaction ul {
-          padding-left: 20px;
-        }
-        .transaction ul li {
-          color: #333;
-        }
-      </style>
-      <h2 style="color: #007bff;">Past Transactions</h2>
-      ${data
-        .map(
-            (transaction) => `
-          <div class="transaction">
-            <h4>Transaction ID: ${transaction.id}</h4>
-            <p><strong>Final Decision:</strong> ${transaction.finalDecision}</p>
-            <p><strong>Risk Score:</strong> ${transaction.riskScore}</p>
-            <p><strong>Reasons:</strong></p>
-            <ul>${transaction.reasons.map((reason) => `<li>${reason}</li>`).join("")}</ul>
-            <p><strong>Timestamp:</strong> ${new Date(transaction.timestamp).toLocaleString()}</p>
-          </div>
-        `
-        )
-        .join("")}
-    `);
-  };
-
   return (
       <div style={{ display: "flex", height: "100vh", fontFamily: "Arial, sans-serif" }}>
         <div style={{ flex: 1, padding: "20px", backgroundColor: "#f8f9fa", borderRight: "1px solid #ddd" }}>
           <h2 style={{ color: "#007bff" }}>Transaction Details</h2>
-          <button
-              onClick={handlePastTransactions}
-              style={{
-                padding: "10px 15px",
-                marginBottom: "15px",
-                backgroundColor: "#007bff",
-                color: "#fff",
-                border: "none",
-                borderRadius: "5px",
-                cursor: "pointer"
-              }}
-          >
-            Past Transactions
-          </button>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
             <tr style={{ backgroundColor: "#e9ecef" }}>
@@ -228,7 +126,7 @@ const App = () => {
                     typeof value === "object" ? (
                         Object.entries(value).map(([subKey, subValue]) => (
                             <tr key={`${sectionKey}-${key}-${subKey}`}>
-                              <td style={{ padding: "10px", border: "1px solid #ddd" }}>{`${key} (${subKey})`}</td>
+                              <td style={{ padding: "10px", border: "1px solid #ddd" }}>{`${capitalizeFirstLetter(key)} (${capitalizeFirstLetter(subKey)})`}</td>
                               <td style={{ padding: "10px", border: "1px solid #ddd" }}>
                                 <input
                                     type="text"
@@ -243,7 +141,7 @@ const App = () => {
                         ))
                     ) : (
                         <tr key={`${sectionKey}-${key}`}>
-                          <td style={{ padding: "10px", border: "1px solid #ddd" }}>{key}</td>
+                          <td style={{ padding: "10px", border: "1px solid #ddd" }}>{capitalizeFirstLetter(key)}</td>
                           <td style={{ padding: "10px", border: "1px solid #ddd" }}>
                             <input
                                 type="text"
@@ -277,7 +175,7 @@ const App = () => {
           <h2 style={{ color: "#007bff" }}>Response Section</h2>
           {responseData ? (
               <div style={{ padding: "15px", backgroundColor: "#fff", borderRadius: "5px", border: "1px solid #ddd" }}>
-                <h3 style={{ color: responseData.finalDecision === "pass" ? "green" : "red" }}>
+                <h3 style={{ color: responseData.finalDecision.toLowerCase() === "accept" ? "green" : "red" }}>
                   {responseData.finalDecision.toUpperCase()}
                 </h3>
                 <p><strong>Risk Score:</strong> {responseData.riskScore}</p>
@@ -295,5 +193,7 @@ const App = () => {
       </div>
   );
 };
-
+function capitalizeFirstLetter(val) {
+  return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+}
 export default App;
